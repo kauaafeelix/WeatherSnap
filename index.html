@@ -17,7 +17,7 @@
     </style>
 </head>
 <body class="bg-blue-400" style="font-family: 'Inter', sans-serif;">
-    <header class="w-full flex flex-row p-10 justify-around items-center gap-2">
+    <header class="w-full flex flex-row pt-5 pb-2 justify-around items-center">
         <h1 class="text-3xl text-white font-bold" id="titulo">WeatherSnap</h1>
         <div>
             <button class="p-3 bg-blue-200 rounded-3xl" id="botao-altera-tema">
@@ -25,5 +25,34 @@
             </button>
         </div>
     </header>
+    <main class="md:flex md:flex-row flex flex-col justify-center items-center p-2">
+        <section class="md:flex flex-row p-7 w-full" id="buscar-cidade">
+            <div class="flex flex-row gap-2 w-full justify-between items-center">
+                <input type="text" id="input-cidade" class="p-4 rounded-3xl w-full" placeholder="Digite o nome da cidade">
+                <button class="p-4 bg-blue-200 rounded-3xl" id="botao-buscar-cidade">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-search-icon lucide-search"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg> 
+                </button>
+            </div>
+        </section>
+
+        <section class="md:flex md:flex-col md:items-center p-7 w-full" id="resultado-clima">
+            <div class="bg-white bg-opacity-50 rounded-3xl p-7 h-full w-full" id="card-clima">
+                <h2 class="text-xl font-semibold flex-row"><span id="nome-cidade">Nome da Cidade,</span> País.</h2>
+                <div class="flex flex-row justify-between items-center mt-4">
+                    <div class="flex flex-col">
+                        <span class="text-6xl font-bold" id="temperatura">--°C</span>
+                        <span class="text-lg" id="descricao-clima">Descrição do clima</span>
+                    </div>
+                    <div>
+                        <img src="" alt="Ícone do clima" id="icone-clima" class="w-24 h-24">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="md:flex md:flex-row md:items-center p-7 w-full" id="proximas-previsoes">Proximas Previsões
+            <div class="md:flex md:flex-col md:gap-4 bg-white bg-opacity-50 p-4" id="card-proximas-previsoes"></div>
+        </section>
+    </main>
 </body>
 </html>
