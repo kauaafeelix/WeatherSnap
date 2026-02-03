@@ -50,8 +50,39 @@
             </div>
         </section>
 
-        <section class="md:flex md:flex-row md:items-center p-7 w-full" id="proximas-previsoes">Proximas Previsões
-            <div class="md:flex md:flex-col md:gap-4 bg-white bg-opacity-50 p-4" id="card-proximas-previsoes"></div>
+        <section class="md:flex md:flex-col md:items-center p-7 w-full gap-2" id="proximas-previsoes">
+            <h3 class="text-lg font-semibold mb-3">Próximas Previsões</h3>
+
+            <div id="card-proximas-previsoes-container" class="w-full flex flex-col md:flex-row md:justify-between gap-4">
+
+                <div class="card-proxima-previsao bg-white bg-opacity-50 p-4 rounded-2xl flex-1 flex flex-col items-center">
+                    <span class="font-medium text-sm text-gray-700">Seg, 03 Fev</span>
+                    <img src="" alt="Ícone do clima" class="w-16 h-16 my-2" id="icone-previsao-1">
+                    <span class="text-2xl font-bold" id="temp-previsao-1">--°C</span>
+                    <span class="text-sm text-gray-600" id="desc-previsao-1">Descrição</span>
+                </div>
+
+                <div class="card-proxima-previsao bg-white bg-opacity-50 p-4 rounded-2xl flex-1 flex flex-col items-center">
+                    <span class="font-medium text-sm text-gray-700">Ter, 04 Fev</span>
+                    <img src="" alt="Ícone do clima" class="w-16 h-16 my-2" id="icone-previsao-2">
+                    <span class="text-2xl font-bold" id="temp-previsao-2">--°C</span>
+                    <span class="text-sm text-gray-600" id="desc-previsao-2">Descrição</span>
+                </div>
+
+                <div class="card-proxima-previsao bg-white bg-opacity-50 p-4 rounded-2xl flex-1 flex flex-col items-center">
+                    <span class="font-medium text-sm text-gray-700">Qua, 05 Fev</span>
+                    <img src="" alt="Ícone do clima" class="w-16 h-16 my-2" id="icone-previsao-3">
+                    <span class="text-2xl font-bold" id="temp-previsao-3">--°C</span>
+                    <span class="text-sm text-gray-600" id="desc-previsao-3">Descrição</span>
+                </div>
+
+                <div class="card-proxima-previsao bg-white bg-opacity-50 p-4 rounded-2xl flex-1 flex flex-col items-center">
+                    <span class="font-medium text-sm text-gray-700">Qui, 06 Fev</span>
+                    <img src="" alt="Ícone do clima" class="w-16 h-16 my-2" id="icone-previsao-4">
+                    <span class="text-2xl font-bold" id="temp-previsao-4">--°C</span>
+                    <span class="text-sm text-gray-600" id="desc-previsao-4">Descrição</span>
+                </div>
+            </div>
         </section>
     </main>
 </body>
