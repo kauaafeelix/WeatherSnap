@@ -1,89 +1,73 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WeatherSnap</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-    tailwind.config = {
-        theme: {
-        extend: {}
-        }
-    }
-    </script>
     <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+        /* Fonte Verdana para tirar o ar "moderninho" da IA */
+        body { 
+            font-family: 'Verdana', sans-serif; 
+            transition: background-color 0.5s ease, color 0.3s ease; 
+        }
+        
+        .glass { 
+            background: rgba(255, 255, 255, 0.25); 
+            backdrop-filter: blur(8px); 
+            border: 1px solid rgba(255, 255, 255, 0.4); 
+        }
+        
+        /* Dark Mode */
+        .dark-mode { background-color: #0f172a !important; color: white; }
+        .dark-mode .glass { background: rgba(0, 0, 0, 0.5); border: 1px solid rgba(255, 255, 255, 0.1); }
     </style>
 </head>
-<body class="bg-blue-400" style="font-family: 'Inter', sans-serif;">
-    <header class="w-full flex flex-row pt-5 pb-2 justify-around items-center">
-        <h1 class="text-3xl text-white font-bold" id="titulo">WeatherSnap</h1>
-        <div>
-            <button class="p-3 bg-blue-200 rounded-3xl" id="botao-altera-tema">
-                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-sun-icon lucide-sun"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
-            </button>
-        </div>
+<body class="bg-sky-500 min-h-screen flex flex-col items-center pb-10" id="body-app">
+    
+    <header class="w-full max-w-4xl flex justify-between items-center p-6 md:p-8 text-white">
+        <h1 class="text-2xl md:text-3xl font-bold tracking-tight italic drop-shadow-md">WeatherSnap</h1>
+        <button id="btn-tema" class="p-3 glass rounded-full hover:scale-110 transition-transform cursor-pointer shadow-lg">
+            <div id="icon-container"></div>
+        </button>
     </header>
-    <main class="md:flex md:flex-row lg:flex lg:flex-col flex flex-col justify-center items-center p-2">
-        <section class="md:flex flex-row p-7 w-full" id="buscar-cidade">
-            <div class="flex flex-row gap-2 w-full justify-between items-center">
-                <input type="text" id="input-cidade" class="p-4 rounded-3xl w-full" placeholder="Digite o nome da cidade">
-                <button class="p-4 bg-blue-200 rounded-3xl" id="botao-buscar-cidade">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-search-icon lucide-search"><path d="m21 21-4.34-4.34"/><circle cx="11" cy="11" r="8"/></svg> 
-                </button>
-            </div>
-        </section>
 
-        <section class="md:flex md:flex-col md:items-center p-7 w-full" id="resultado-clima">
-            <div class="bg-white bg-opacity-50 rounded-3xl p-7 h-full w-full" id="card-clima">
-                <h2 class="text-xl font-semibold flex-row"><span id="nome-cidade">Nome da Cidade,</span> País.</h2>
-                <div class="flex flex-row justify-between items-center mt-4">
-                    <div class="flex flex-col">
-                        <span class="text-6xl font-bold" id="temperatura">--°C</span>
-                        <span class="text-lg" id="descricao-clima">Descrição do clima</span>
+    <main class="w-full max-w-2xl px-4 md:px-6">
+        <div class="flex flex-col md:flex-row gap-3 mb-8 md:mb-10">
+            <input type="text" id="input-cidade" class="w-full p-4 md:p-5 rounded-xl shadow-lg outline-none text-base md:text-lg text-gray-900 placeholder-gray-500" placeholder="Digite a cidade (ex: Curitiba)">
+            <button id="btn-busca" class="p-4 md:p-5 bg-blue-700 text-white rounded-xl hover:bg-blue-800 shadow-lg transition-colors flex justify-center items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+                <span class="md:hidden ml-2 font-bold">Buscar</span> </button>
+        </div>
+
+        <div id="container-clima" class="hidden animate-in fade-in duration-700">
+            <section class="glass rounded-xl p-6 md:p-8 text-white shadow-xl mb-6 md:mb-8">
+                <div class="flex flex-col md:flex-row justify-between items-center md:items-start text-center md:text-left">
+                    
+                    <img src="" id="clima-icon" class="w-32 h-32 md:w-40 md:h-40 drop-shadow-xl md:order-2" alt="icon">
+
+                    <div class="md:order-1 mt-4 md:mt-0">
+                        <h2 class="text-3xl md:text-4xl font-bold mb-1 drop-shadow-md" id="cidade-nome">---</h2>
+                        <p class="text-lg opacity-90 font-bold" id="pais-nome">---</p>
+                        <div class="mt-4 md:mt-8">
+                            <span class="text-6xl md:text-8xl font-bold tracking-tighter drop-shadow-xl block" id="temp-valor">--°C</span>
+                            <span class="text-xl md:text-2xl block mt-2 capitalize font-medium" id="clima-desc">---</span>
+                        </div>
                     </div>
-                    <div>
-                        <img src="" alt="Ícone do clima" id="icone-clima" class="w-24 h-24">
-                    </div>
                 </div>
-            </div>
-        </section>
-
-        <section class="md:flex md:flex-col md:items-center p-7 w-full gap-2" id="proximas-previsoes">
-            <h3 class="text-lg font-semibold mb-3">Próximas Previsões</h3>
-
-            <div id="card-proximas-previsoes-container" class="w-full flex flex-col md:flex-row md:justify-between gap-4">
-
-                <div class="card-proxima-previsao bg-white bg-opacity-50 p-4 rounded-2xl flex-1 flex flex-col items-center">
-                    <span class="font-medium text-sm text-gray-700">Seg, 03 Fev</span>
-                    <img src="" alt="Ícone do clima" class="w-16 h-16 my-2" id="icone-previsao-1">
-                    <span class="text-2xl font-bold" id="temp-previsao-1">--°C</span>
-                    <span class="text-sm text-gray-600" id="desc-previsao-1">Descrição</span>
+                
+                <div class="mt-6 md:mt-8 p-4 bg-white/20 rounded-lg border border-white/10 backdrop-blur-md text-center md:text-left">
+                    <p class="text-base md:text-lg italic font-medium" id="sugestao-frase"></p>
                 </div>
+            </section>
 
-                <div class="card-proxima-previsao bg-white bg-opacity-50 p-4 rounded-2xl flex-1 flex flex-col items-center">
-                    <span class="font-medium text-sm text-gray-700">Ter, 04 Fev</span>
-                    <img src="" alt="Ícone do clima" class="w-16 h-16 my-2" id="icone-previsao-2">
-                    <span class="text-2xl font-bold" id="temp-previsao-2">--°C</span>
-                    <span class="text-sm text-gray-600" id="desc-previsao-2">Descrição</span>
+            <div id="forecast-grid" class="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
                 </div>
-
-                <div class="card-proxima-previsao bg-white bg-opacity-50 p-4 rounded-2xl flex-1 flex flex-col items-center">
-                    <span class="font-medium text-sm text-gray-700">Qua, 05 Fev</span>
-                    <img src="" alt="Ícone do clima" class="w-16 h-16 my-2" id="icone-previsao-3">
-                    <span class="text-2xl font-bold" id="temp-previsao-3">--°C</span>
-                    <span class="text-sm text-gray-600" id="desc-previsao-3">Descrição</span>
-                </div>
-
-                <div class="card-proxima-previsao bg-white bg-opacity-50 p-4 rounded-2xl flex-1 flex flex-col items-center">
-                    <span class="font-medium text-sm text-gray-700">Qui, 06 Fev</span>
-                    <img src="" alt="Ícone do clima" class="w-16 h-16 my-2" id="icone-previsao-4">
-                    <span class="text-2xl font-bold" id="temp-previsao-4">--°C</span>
-                    <span class="text-sm text-gray-600" id="desc-previsao-4">Descrição</span>   
-                </div>
-            </div>
-        </section>
+        </div>
     </main>
+
+    
+        <script src="script.js"></script>
+
 </body>
 </html>
