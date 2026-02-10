@@ -77,8 +77,8 @@ const API_KEY = "a71b657df07c1226730daac45d849043";
             applyTheme();
 
             const sug = document.getElementById('sugestao-frase');
-            if (condicaoAPI === 'Rain' || condicaoAPI === 'Drizzle') sug.innerText = "☔ Leve o guarda-chuva.";
-            else if (condicaoAPI === 'Thunderstorm') sug.innerText = "⛈️ Tempestade! Cuidado.";
+            if (condicaoAPI === 'Chuva' || condicaoAPI === 'Chuvisco') sug.innerText = "☔ Leve o guarda-chuva.";
+            else if (condicaoAPI === 'Tempestade') sug.innerText = "⛈️ Tempestade! Cuidado.";
             else if (current.main.temp > 30) sug.innerText = "🔥 Calorão! Beba água.";
             else if (current.main.temp < 15) sug.innerText = "❄️ Está frio, se agasalhe.";
             else sug.innerText = "✨ Clima bom para sair.";
@@ -112,7 +112,7 @@ const API_KEY = "a71b657df07c1226730daac45d849043";
 
         function updateIcon() {
             const isDark = bodyApp.classList.contains('dark-mode');
-            iconContainer.innerHTML = isDark ? iconSun : iconMoon;
+            iconContainer.innerHTML = isDark ? iconSol : iconLua;
         }
 
         document.getElementById('btn-tema').onclick = () => {
